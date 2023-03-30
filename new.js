@@ -131,7 +131,7 @@ function get_details(n){
       const para_strong = document.createElement("strong");
       const para_i = document.createElement("span");
       para_i.setAttribute("id", "para_i");
-      para_i.setAttribute("style", "color:#ff6800;font-weight:bold;font-style:italic;");
+      para_i.setAttribute("style", "color:black;font-weight:bold;font-style:italic;");
       //para_i.setAttribute("style", ");
       
       const node_time = document.createTextNode(city_time);
