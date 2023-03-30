@@ -74,10 +74,15 @@ function clean_detail(n){
       count_routes = 9;
     }
     for (let i = 0; i < count_routes; i++) {
-      new_var = "ul" + i
+      new_var = "ul" + i;
+      new_var1 = "dis_ul" + i;
       const list = document.getElementById(new_var);
+      const list1 = document.getElementById(new_var1);
       while (list.hasChildNodes()) {
         list.removeChild(list.firstChild);
+      }
+      while (list1.hasChildNodes()) {
+        list1.removeChild(list1.firstChild);
       }
     }
 }
@@ -107,31 +112,45 @@ function get_details(n){
     console.log(discounts);
     console.log(count_discounts);
     let count_cities = Object.values(timetable).length;
-
+    let transfer = '';
     let som = "ul" + i;
     for (let j=0; j<count_cities; j++){
       let city_address ='';
       if (timetable[j].transfer_point == true){
-        city_address =timetable[j].title + ' (Можлива пересадка)'+", " + timetable[j].address ;
+        transfer = ' (Можлива пересадка) ';
+        //city_address =timetable[j].title + ' (Можлива пересадка)'+", " + timetable[j].address ;
       } else {
-        city_address =timetable[j].title +", " + timetable[j].address;
+        transfer = '';
+        //city_address =timetable[j].title +", " + timetable[j].address;
       }
       
       let city_time = timetable[j].datetime + " ";
       let t_index = city_time.indexOf(":");
       city_time = city_time.slice(t_index-2,);
-      const para = document.createElement("li");
-      const para1 = document.createElement("strong");
-      para.appendChild(para1);
-      const node = document.createTextNode(city_time);
-      para1.appendChild(node);
+      const para_li = document.createElement("li");
+      const para_strong = document.createElement("strong");
+      const para_i = document.createElement("span");
+      para_i.setAttribute("id", "para_i");
+      para_i.setAttribute("style", "color:#ff6800;font-weight:bold;font-style:italic;");
+      //para_i.setAttribute("style", ");
       
-      const node1 = document.createTextNode(city_address);
-      para.appendChild(node1);
+      const node_time = document.createTextNode(city_time);
+      const node_city = document.createTextNode(timetable[j].title+', ');
+      const node_transfer = document.createTextNode(transfer);
+      const node_address = document.createTextNode(timetable[j].address);
+      
+      para_li.appendChild(para_strong);
+      para_strong.appendChild(node_time);
+      para_li.appendChild(node_city);
+      para_li.appendChild(para_i);
+      
+      para_i.appendChild(node_transfer);
+      
+      para_li.appendChild(node_address);
 
       const element = document.getElementById(som);
       const child = document.getElementById("li");
-      element.insertBefore(para, child);
+      element.insertBefore(para_li, child);
       }
     som = "dis_ul" + i;
     for (let j=0; j<count_discounts; j++){
@@ -146,10 +165,8 @@ function get_details(n){
       const element = document.getElementById(som);
       const child = document.getElementById("li");
       element.insertBefore(para, child);
-      }
-      
+      } 
     }
-
   }
 }
 
